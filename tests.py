@@ -1,6 +1,7 @@
+import numpy
 import math
-sequence1 = [1,0,1,1,0,1,0,1,0,0,1,1,1,0,1,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,1,0,1,0,0,1,1,0,0,0,0,0,1,1,1,0,0,0,1,1,0,0,0,0,0,1,1,0,1,0,1,1,0,0,0,1,0,1,1,1,0,1,0,0,0,0,0,0,0,1,1,0,0,0,1,0,1,1,1,1,1,0,0,0,1,1,0,1,0,0,1,1,1,0,1,0,0,0,0,0,1,0,0,1,0,0,1,1,0,1,0,0,0,1,0,0]
-s2 = [1,0,0,0,1,1,0,0,0,1,0,0,0,0,0,1,1,1,1,1,1,0,1,1,0,0,0,1,0,1,0,1,0,0,1,0,1,1,0,1,0,0,1,1,0,1,1,1,1,0,0,0,0,0,1,0,0,0,1,0,1,1,1,1,0,0,0,0,1,1,1,1,0,1,0,0,1,0,0,0,0,0,0,1,0,1,0,1,0,0,1,1,1,0,1,0,0,1,1,0,1,0,1,0,0,1,1,1,0,0,0,1,1,0,1,1,0,1,0,1,0,1,1,0,0,1,0,1,]
+
+sequence = [1,0,0,0,1,1,0,0,0,1,0,0,0,0,0,1,1,1,1,1,1,0,1,1,0,0,0,1,0,1,0,1,0,0,1,0,1,1,0,1,0,0,1,1,0,1,1,1,1,0,0,0,0,0,1,0,0,0,1,0,1,1,1,1,0,0,0,0,1,1,1,1,0,1,0,0,1,0,0,0,0,0,0,1,0,1,0,1,0,0,1,1,1,0,1,0,0,1,1,0,1,0,1,0,0,1,1,1,0,0,0,1,1,0,1,1,0,1,0,1,0,1,1,0,0,1,0,1,]
 
 def frequency_bit_test (sequence: list) -> float:
     sum = 0
@@ -25,9 +26,47 @@ def identical_bits_test(sequence: list) -> float:
     return math.erfc((abs(Vn -2*N*part1*(1-part1)))/(2*math.sqrt(2*N)*part1*(1-part1)))
 
 
+def longest_sequence_test(sequence: list)-> float:
+    bloks = numpy.array_split(sequence, 16)
+    result=[]
+    for blok in bloks:
+        ones = 0
+        max_ones = 0
+        for i in blok:
+            if i == 1:
+                ones+=1
+                max_ones = max(ones, max_ones)
+            else:
+                ones = 0
+        result.append(max_ones)
+    V=[result.count(0)+result.count(1),result.count(2),result.count(3),result.count(4)+result.count(5)+result.count(6)+result.count(7)+result.count(8)]
+    pi = [0.2148, 0.3672, 0.2305, 0.1875]
+    squareX = 0
+    s=0
+    for i in range (0,4):
+        squareX += (pow((V[i]-16*pi[i]),2))/(16*pi[i])
+    return squareX/2
+'''[1 0 0 0 1 1 0 0] 2
+[0 1 0 0 0 0 0 1] 1
+[1 1 1 1 1 0 1 1] 5
+[0 0 0 1 0 1 0 1] 1
+[0 0 1 0 1 1 0 1] 2
+[0 0 1 1 0 1 1 1] 3
+[1 0 0 0 0 0 1 0] 1
+[0 0 1 0 1 1 1 1] 4
+[0 0 0 0 1 1 1 1] 4
+[0 1 0 0 1 0 0 0] 1
+[0 0 0 1 0 1 0 1] 1
+[0 0 1 1 1 0 1 0] 3
+[0 1 1 0 1 0 1 0] 2
+[0 1 1 1 0 0 0 1] 3
+[1 0 1 1 0 1 0 1] 2
+[0 1 1 0 0 1 0 1] 2
+
+V = [5, 5, 3, 3]'''
+            
+
 if __name__ == '__main__':
-    #p_1 = frequency_bit_test(s2)
-    #print(len(s2), p_1)
-    identical_bits_test(s2)
-    '''for i in range (0,4):
-        print(i)'''
+    test1 = frequency_bit_test(sequence)
+    test2 = identical_bits_test(sequence)
+    test3 = longest_sequence_test(sequence)
