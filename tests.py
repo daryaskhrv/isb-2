@@ -46,27 +46,13 @@ def longest_sequence_test(sequence: list)-> float:
     for i in range (0,4):
         squareX += (pow((V[i]-16*pi[i]),2))/(16*pi[i])
     return squareX/2
-'''[1 0 0 0 1 1 0 0] 2
-[0 1 0 0 0 0 0 1] 1
-[1 1 1 1 1 0 1 1] 5
-[0 0 0 1 0 1 0 1] 1
-[0 0 1 0 1 1 0 1] 2
-[0 0 1 1 0 1 1 1] 3
-[1 0 0 0 0 0 1 0] 1
-[0 0 1 0 1 1 1 1] 4
-[0 0 0 0 1 1 1 1] 4
-[0 1 0 0 1 0 0 0] 1
-[0 0 0 1 0 1 0 1] 1
-[0 0 1 1 1 0 1 0] 3
-[0 1 1 0 1 0 1 0] 2
-[0 1 1 1 0 0 0 1] 3
-[1 0 1 1 0 1 0 1] 2
-[0 1 1 0 0 1 0 1] 2
-
-V = [5, 5, 3, 3]'''
             
 
 if __name__ == '__main__':
     test1 = frequency_bit_test(sequence)
+    #0.5958830905651779
     test2 = identical_bits_test(sequence)
+    #0.4632060528974583
     test3 = longest_sequence_test(sequence)
+    #squareX = 0.9697299296305197
+    #gamma_function = 0.80857342
